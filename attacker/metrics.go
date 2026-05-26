@@ -68,42 +68,6 @@ type ByteMetrics struct {
 	Mean float64 `json:"mean"`
 }
 
-func newMetrics(m *vegeta.Metrics) *Metrics {
-	statusCodes := make(map[string]int, len(m.StatusCodes))
-	for k, v := range m.StatusCodes {
-		statusCodes[k] = v
-	}
+func newMetrics(m *vegeta.Metrics) *Metrics { _ = "STUB: not implemented"; return nil }
 
-	return &Metrics{
-		Latencies: LatencyMetrics{
-			Total: m.Latencies.Total,
-			Mean:  m.Latencies.Mean,
-			P50:   m.Latencies.Quantile(0.50),
-			P90:   m.Latencies.Quantile(0.90),
-			P95:   m.Latencies.Quantile(0.95),
-			P99:   m.Latencies.Quantile(0.99),
-			Max:   m.Latencies.Max,
-			Min:   m.Latencies.Min,
-		},
-		//Histogram:   m.Histogram,
-		BytesIn: ByteMetrics{
-			Total: m.BytesIn.Total,
-			Mean:  m.BytesIn.Mean,
-		},
-		BytesOut: ByteMetrics{
-			Total: m.BytesOut.Total,
-			Mean:  m.BytesOut.Mean,
-		},
-		Earliest:    m.Earliest,
-		Latest:      m.Latest,
-		End:         m.End,
-		Duration:    m.Duration,
-		Wait:        m.Wait,
-		Requests:    m.Requests,
-		Rate:        m.Rate,
-		Throughput:  m.Throughput,
-		Success:     m.Success,
-		StatusCodes: statusCodes,
-		Errors:      m.Errors,
-	}
-}
+//Histogram:   m.Histogram,

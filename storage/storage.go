@@ -1,8 +1,6 @@
 package storage
 
 import (
-	"errors"
-	"log"
 	"time"
 
 	"github.com/nakabonne/tstorage"
@@ -43,14 +41,8 @@ type Result struct {
 }
 
 func NewStorage(partitionDuration time.Duration) (Storage, error) {
-	s, err := tstorage.NewStorage(
-		tstorage.WithLogger(log.Default()),
-		tstorage.WithPartitionDuration(partitionDuration),
-	)
-	if err != nil {
-		return nil, err
-	}
-	return &storage{backend: s}, nil
+	_ = "STUB: not implemented"
+	return *new(Storage), nil
 }
 
 type storage struct {
@@ -60,69 +52,23 @@ type storage struct {
 // Insert writes the given result to the backend storage.
 // The unit of value will be converted in milliseconds.
 func (s *storage) Insert(result *Result) error {
+	_ = "STUB: not implemented"
 	// Convert timestamp into unix time in nanoseconds.
-	timestamp := result.Timestamp.UnixNano()
-	// TODO: Think about how to handle code
-	/*
-		labels := []tstorage.Label{
-			{
-				Name:  codeLabelName,
-				Value: strconv.Itoa(int(result.Code)),
-			},
-		}
-	*/
-	rows := []tstorage.Row{
-		{
-			Metric: LatencyMetricName,
-			DataPoint: tstorage.DataPoint{
-				Timestamp: timestamp,
-				Value:     float64(result.Latency.Milliseconds()),
-			},
-		},
-		{
-			Metric: P50MetricName,
-			DataPoint: tstorage.DataPoint{
-				Timestamp: timestamp,
-				Value:     float64(result.P50.Milliseconds()),
-			},
-		},
-		{
-			Metric: P90MetricName,
-			DataPoint: tstorage.DataPoint{
-				Timestamp: timestamp,
-				Value:     float64(result.P90.Milliseconds()),
-			},
-		},
-		{
-			Metric: P95MetricName,
-			DataPoint: tstorage.DataPoint{
-				Timestamp: timestamp,
-				Value:     float64(result.P95.Milliseconds()),
-			},
-		},
-		{
-			Metric: P99MetricName,
-			DataPoint: tstorage.DataPoint{
-				Timestamp: timestamp,
-				Value:     float64(result.P99.Milliseconds()),
-			},
-		},
-	}
-	return s.backend.InsertRows(rows)
+	return nil
 }
 
+// TODO: Think about how to handle code
+/*
+	labels := []tstorage.Label{
+		{
+			Name:  codeLabelName,
+			Value: strconv.Itoa(int(result.Code)),
+		},
+	}
+*/
+
 func (s *storage) Select(metric string, start, end time.Time) ([]float64, error) {
+	_ = "STUB: not implemented"
 	// Convert timestamp into unix time in nanoseconds.
-	points, err := s.backend.Select(metric, nil, start.UnixNano(), end.UnixNano())
-	if errors.Is(err, tstorage.ErrNoDataPoints) {
-		return []float64{}, nil
-	}
-	if err != nil {
-		return nil, err
-	}
-	values := make([]float64, len(points))
-	for i := range points {
-		values[i] = points[i].Value
-	}
-	return values, nil
+	return nil, nil
 }

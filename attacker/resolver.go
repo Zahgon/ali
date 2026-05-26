@@ -1,10 +1,7 @@
 package attacker
 
 import (
-	"context"
 	"net"
-	"sync/atomic"
-	"time"
 )
 
 type resolver struct {
@@ -12,20 +9,6 @@ type resolver struct {
 	addrs []string
 }
 
-func NewResolver(addrs []string) *net.Resolver {
-	r := &resolver{addrs: addrs}
+func NewResolver(addrs []string) *net.Resolver { _ = "STUB: not implemented"; return nil }
 
-	return &net.Resolver{
-		PreferGo: true,
-		Dial: func(ctx context.Context, network, address string) (net.Conn, error) {
-			d := net.Dialer{
-				Timeout: time.Millisecond * time.Duration(2000),
-			}
-			return d.DialContext(ctx, network, r.address())
-		},
-	}
-}
-
-func (r *resolver) address() string {
-	return r.addrs[atomic.AddUint64(&r.idx, 1)%uint64(len(r.addrs))]
-}
+func (r *resolver) address() string { _ = "STUB: not implemented"; return "" }

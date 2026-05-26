@@ -14,35 +14,26 @@ type FakeAttacker struct {
 }
 
 func (f *FakeAttacker) Attack(ctx context.Context, metricsCh chan *Metrics) error {
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (f *FakeAttacker) Rate() int {
-	return f.rate
-}
+func (f *FakeAttacker) Rate() int { _ = "STUB: not implemented"; return 0 }
 
 func (f *FakeAttacker) Duration() time.Duration {
-	return f.duration
+	_ = "STUB: not implemented"
+	return *new(time.Duration)
 }
 
-func (f *FakeAttacker) Method() string {
-	return f.method
-}
+func (f *FakeAttacker) Method() string { _ = "STUB: not implemented"; return "" }
 
 type fakeBackedAttacker struct {
 	results []*vegeta.Result
 }
 
 func (f *fakeBackedAttacker) Attack(vegeta.Targeter, vegeta.Pacer, time.Duration, string) <-chan *vegeta.Result {
-	resultCh := make(chan *vegeta.Result)
-	go func() {
-		defer close(resultCh)
-		for _, r := range f.results {
-			resultCh <- r
-		}
-	}()
-	return resultCh
+	_ = "STUB: not implemented"
+	return nil
 }
 
-func (f *fakeBackedAttacker) Stop() {
-}
+func (f *fakeBackedAttacker) Stop() { _ = "STUB: not implemented"; return }
